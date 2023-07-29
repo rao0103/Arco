@@ -7165,6 +7165,11 @@ statuses@2.0.1:
   resolved "https://registry.npmmirror.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
 
+storejs@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npmmirror.com/storejs/-/storejs-2.0.5.tgz#88e5f1473f637bfd7fae4cc7d0fdaa70613c7984"
+  integrity sha512-x+D6nhQDx6FVVFap8f9Fyj9o3GH02mgjmu4/W432HrR1S+rGBCUUpViPVtcersKJ8BAt28RA4A4I35Oj3J59Xw==
+
 string-argv@^0.3.1:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.3.2.tgz#2b6d0ef24b656274d957d54e0a4bbf6153dc02b6"
@@ -7857,6 +7862,11 @@ vue-types@^3.0.0:
   integrity sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==
   dependencies:
     is-plain-object "3.0.1"
+
+vue3-puzzle-vcode@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.npmmirror.com/vue3-puzzle-vcode/-/vue3-puzzle-vcode-1.0.15.tgz#ae0fc82c25effc4e3c23c7e4bcf06530f32581c5"
+  integrity sha512-nfvHYBuuNHJ8G/jRkptf+1FSG/3aGOu+lnVQyfgJE7Be27JXFPP73KfxJtzrNmF/8rsG9lOQmvxN64FIMkxu9Q==
 
 vue@^3.2.13:
   version "3.3.4"
