@@ -84,7 +84,7 @@
               >
             </a-form-item>
             <span
-              class="login-form-forgot float-right"
+              class="login-form-forgot float-right cursor-pointer"
               href=""
               @click="
                 () => {
@@ -228,7 +228,7 @@
                 () => {
                   login = true;
                   register = false;
-                  forgetPwd = true;
+                  forgetPwd = false;
                   visible = true;
                 }
               "
