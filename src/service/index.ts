@@ -1,5 +1,4 @@
 import http from "@/utils/http";
-import { data } from "autoprefixer";
 // 用户名验证
 export const isUserExists = async (
   params: { username: string } | { email: string }
@@ -34,3 +33,7 @@ export const registerUsers = async (data: {
   username: string;
   verification_type: 1;
 }) => (await http.post<IBaseResponse>("/api/v1/users", data)).data.code;
+
+// 用户信息
+export const userInfo = async () =>
+  (await http.get<IuserInfo>("/api/v1/users/user_info")).data.data;

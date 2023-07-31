@@ -1,10 +1,13 @@
-import { notification } from "ant-design-vue";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError } from "axios";
 import store from "storejs";
+import { notification } from "ant-design-vue";
+
 const http = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
-  timeout: process.env.VUE_APP_TIMEOUT,
+  timeout: Number(process.env.VUE_APP_TIMEOUT),
 });
+
 // 添加请求拦截器
 http.interceptors.request.use(
   (config) => {
@@ -18,23 +21,28 @@ http.interceptors.request.use(
     console.log(error);
   }
 );
+
 // 添加响应拦截器
 http.interceptors.response.use(
   (option) => {
-    const url2Handler: Record<string, () => unknown> = {
-      "/api/v1/user/login": () => store.set("arco_auth", option.data.data),
+    const url2Handler: Record<string, () => any> = {
+      "/api/v1/users/login": () => store.set("arco_auth", option.data.data),
     };
-    url2Handler[option.config.url ?? ""]?.();
+    url2Handler[option?.config?.url ?? ""]?.();
+
     return option;
   },
   (error: AxiosError<IBaseResponse>) => {
-    let errorMessage = "有没有预先定义的错误请更新！！！";
+    let errorMessage = "有没有预先定义的错误，请更新";
+
     if (error.code === "ERR_NETWORK") {
       errorMessage = "网络似乎断开了连接";
     }
+
     if (error.response?.data) {
-      errorMessage = error.response.data.msg;
+      errorMessage = error.response?.data.msg;
     }
+
     notification.error({
       message: errorMessage,
     });

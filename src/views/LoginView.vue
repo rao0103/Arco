@@ -352,6 +352,7 @@ import { FormInstance, notification } from "ant-design-vue";
 import type { Rule } from "ant-design-vue/es/form";
 import { useRequest } from "vue-request";
 import Vcode from "vue3-puzzle-vcode";
+import router from "@/router";
 let forgetPwd = ref(false); // 忘记密码页面
 let register = ref(false); //注册页面
 let login = ref(true); //登录页面
@@ -402,11 +403,16 @@ const { data: isSendSuccess, run: runSendVerificationCodes } = useRequest(
   { manual: true }
 );
 const { run: runLoginSuccess } = useRequest(
-  () =>
-    isLoginExists({
+  async () => {
+    const response = await isLoginExists({
       username: formState.usernamel,
       password: formState.passwordl,
-    }),
+    });
+    // console.log(response);
+    if (response === 0) {
+      router.push("./staging");
+    }
+  },
   { manual: true }
 );
 watchEffect(() => {
