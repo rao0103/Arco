@@ -390,7 +390,7 @@ const userInfo = reactive({
   checkPass: "",
   verificationCode: "",
 });
-const { data: isUsernameExistsCode, run: runIsUserExists } = useRequest(
+const { run: runIsUserExists } = useRequest(
   () => isUserExists({ username: userInfo.username ?? formState.usernamel }),
   { manual: true }
 );
