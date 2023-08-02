@@ -2,7 +2,7 @@ type U<T extends Record<string, any>> = T & { children: U<T>[] };
 export function list2tree<T extends { id: number; parent_id: number }>(
   list: T[],
   parent_id = 0,
-  res: U<T>[] = [],
+  res: U<T>[] = []
 ) {
   for (const item of list) {
     if (item.parent_id === parent_id) {
@@ -11,5 +11,6 @@ export function list2tree<T extends { id: number; parent_id: number }>(
       res.push(copy);
     }
   }
+  // console.log(res);
   return res;
 }
