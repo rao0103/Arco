@@ -37,3 +37,16 @@ export const registerUsers = async (data: {
 // 用户信息
 export const userInfo = async () =>
   (await http.get<IuserInfo>("/api/v1/users/user_info")).data.data;
+// 用户进行中的项目
+export const userOngoingProject = async (params: {
+  is_recycle: number;
+  is_archived: number;
+}) =>
+  (
+    await http.get<IuserOngoingProject>("/api/v1/projects/list", {
+      params,
+    })
+  ).data.data.rows;
+// 我的任务
+export const taskPrioritysList = async (params: MyTaskParmas) =>
+  (await http.get<MyTask>("/api/v1/tasks/list", { params })).data.data;
