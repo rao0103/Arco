@@ -39,7 +39,7 @@
               @click="ongoingJump(item.id)"
             >
               <div
-                class="text-[12px] text-center absolute top-0 right-0 w-[70px] bg-[#574EFECC] text-[#fff] pt-[10px] transform origin-top origin-center translate-x-1/2 rotate-45"
+                class="text-[12px] text-center absolute top-0 right-0 w-[70px] bg-[#574EFECC] text-[#fff] pt-[10px] transform origin translate-x-1/2 rotate-45"
               >
                 公开
               </div>
@@ -400,5 +400,8 @@ body {
 }
 .ant-progress-outer {
   padding-right: 0 !important;
+}
+.origin {
+  transform-origin: top center;
 }
 </style>
