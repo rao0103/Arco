@@ -40,12 +40,12 @@ export const resetPassword = async (data: {
 
 //所有项目
 export const allItem = async (params: { limit: string }) =>
-  (await http.get<AllItem>("/api/v1/projects/list", { params })).data.data;
+  (await http.get<TAllItem>("/api/v1/projects/list", { params })).data.data;
 
 //概览
 export const overview = async (params: { id: string }) =>
-  (await http.get<OverviewData>("/api/v1/projects/statistics", { params })).data
-    .data;
+  (await http.get<TOverviewData>("/api/v1/projects/statistics", { params }))
+    .data.data;
 //概览下部分
 export const OverviewDetails = async (params: {
   project_id: string;
@@ -56,6 +56,6 @@ export const OverviewDetails = async (params: {
 }) =>
   (await http.get<TaskLogData>("/api/v1/task_logs/list", { params })).data.data;
 
-//路由
-export const GetRoute = async () =>
+//菜单路由
+export const GetUserMenus = async () =>
   (await http.get<TLayout>("/api/v1/menus/user_menus")).data.data;

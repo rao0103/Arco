@@ -1,34 +1,26 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import store from "storejs";
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/",
-    name: "Login",
-    component: () => import("@/views/Login/LoginView.vue"),
-  },
-  {
-    path: "/:catchAll(.*)",
-    redirect: "/", // 重定向到首页或其他页面
-  },
-];
-
+import { createRouter, createWebHistory } from "vue-router";
+import constantRoutes from "@/router/constant.routes";
+import buildDynamicRoutes from "./dynamic.routes";
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes: constantRoutes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const loggedIn = store.has("arco_auth");
-  if (requiresAuth && !loggedIn) {
-    // 需要登录权限且未登录时，重定向到登录页面
-    next({ name: "Login" });
-  } else if (!requiresAuth && loggedIn) {
-    // 不需要登录权限且已登录时，重定向到首页或其他页面
+const CONSTANT_ROUTES_NUM = router.getRoutes().map((route) => route.path);
+router.beforeEach((to, from, next) => {
+  if (CONSTANT_ROUTES_NUM.includes(to.fullPath)) {
     next();
+  } else if (router.getRoutes().length <= CONSTANT_ROUTES_NUM.length) {
+    const menus: TLayout | undefined = store.get("menus");
+    //添加动态路由后跳转
+    if (Array.isArray(menus)) {
+      buildDynamicRoutes(menus);
+      next(to.fullPath);
+    } else {
+      next("/login");
+    }
   } else {
-    // 其他情况，正常跳转
     next();
   }
 });

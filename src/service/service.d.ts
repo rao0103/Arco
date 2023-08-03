@@ -8,7 +8,7 @@ type TLoginResponse = IBaseResponse<{
   refreshToken: string;
   csrf: string;
 }>;
-type OverviewData = IBaseResponse<{
+type TOverviewData = IBaseResponse<{
   taskCount: number;
   done: number;
   undone: number;
@@ -60,7 +60,7 @@ type TaskLogData = IBaseResponse<{
     task: { id: number; name: string };
   };
 }>;
-type AllItem = IBaseResponse<{
+type TAllItem = IBaseResponse<{
   count: number;
   rows: {
     id: number;

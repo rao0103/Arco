@@ -10,5 +10,5 @@ export default (menus: TLayout["data"]) => {
   });
   const menuTree = list2tree(temp);
   menuTree.forEach((route) => router.addRoute(route as RouteRecordRaw));
-  console.log(menus);
+  console.log(menuTree);
 };

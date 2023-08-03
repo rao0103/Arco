@@ -97,10 +97,11 @@ import { isUserExists, isUsersLogin } from "@/service";
 import Vcode from "vue3-puzzle-vcode";
 import { notification } from "ant-design-vue";
 import { useRequest } from "vue-request";
-import { GetRoute } from "@/service";
-import dynamicRouting from "@/assets/menu";
-import router from "@/router";
+import { GetUserMenus } from "@/service";
+import getCurrentTimePeriod from "@/hooks/useGetCurrentTimePeriod";
+import store from "storejs";
 const isShow = ref(false); // 验证框
+const router = useRouter();
 
 //滑块成功触发事件
 const onSuccess = () => {
@@ -179,12 +180,12 @@ const { run: LoginJudgment } = useRequest(
     manual: true,
     // 请求成功时
     onSuccess: () => {
-      notification.open({
-        type: "success",
-        message: `账号登录成功`,
+      notification.success({
+        message: `${getCurrentTimePeriod()}好`,
+        description: "欢迎登录Arco",
       });
-      GetRoute().then((data) => {
-        dynamicRouting(data);
+      GetUserMenus().then((data) => {
+        store.set("menus", data);
         router.push("/index");
       });
     },
