@@ -15,21 +15,21 @@ export const sendVerificationCodes = async (data: {
   (await http.post<IBaseResponse>("/api/v1/verification_codes", data)).data
     .code;
 
-export const register = async (data: {
-  avatar: string;
+// 判断是否注册
+export const registerUsers = async (data: {
+  avatar: "";
   code: string;
   email: string;
   password: string;
   passwordConfirm: string;
   username: string;
   verification_type: 1;
-}) => (await http.post("/api/v1/users", data)).data.code;
-
+}) => (await http.post<IBaseResponse>("/api/v1/users", data)).data.code;
 //登录
-export const isUsersLogin = async (data: {
+export const isLoginExists = async (data: {
   username: string;
   password: string;
-}) => (await http.post<TLoginResponse>("/api/v1/users/login", data)).data.code;
+}) => (await http.post<ILoginResponse>("/api/v1/users/login", data)).data.code;
 // 重置密码
 export const resetPassword = async (data: {
   email: string;
@@ -37,25 +37,61 @@ export const resetPassword = async (data: {
   password: string;
   passwordConfirm: string;
 }) => (await http.put<IBaseResponse>("/api/v1/users/password", data)).data.code;
-
-//所有项目
-export const allItem = async (params: { limit: string }) =>
-  (await http.get<TAllItem>("/api/v1/projects/list", { params })).data.data;
-
-//概览
-export const overview = async (params: { id: string }) =>
-  (await http.get<TOverviewData>("/api/v1/projects/statistics", { params }))
-    .data.data;
-//概览下部分
-export const OverviewDetails = async (params: {
-  project_id: string;
-  limit?: string;
-  offset?: string;
-  prop_order?: "id";
-  order?: "desc";
-}) =>
-  (await http.get<TaskLogData>("/api/v1/task_logs/list", { params })).data.data;
-
+// 用户信息
+export const userInfo = async () =>
+  (await http.get<IuserInfo>("/api/v1/users/user_info")).data.data;
 //菜单路由
 export const GetUserMenus = async () =>
   (await http.get<TLayout>("/api/v1/menus/user_menus")).data.data;
+
+// 用户进行中的项目
+export const userOngoingProject = async (params: {
+  is_recycle: number;
+  is_archived: number;
+}) =>
+  (
+    await http.get<IuserOngoingProject>("/api/v1/projects/list", {
+      params,
+    })
+  ).data.data.rows;
+// 我的任务
+export const taskPrioritysList = async (params: MyTaskParmas) =>
+  (await http.get<MyTask>("/api/v1/tasks/list", { params })).data.data;
+// 部门列表
+export const departmentList = async () =>
+  (await http.get<Tlist>("/api/v1/departments/list")).data.data;
+// 部门详情
+export const departmentDetails = async (id: number) =>
+  (await http.get<Tlist>(`/api/v1/users/list?keyword=&department_id=${id}`))
+    .data.data;
+// 获取所有成员数据
+export const memberInfo = async (id: string) =>
+  (await http.get<Tmember>(`/api/v1/users/list?keyword=${id}`)).data.data;
+
+// 获取新加入的成员数据
+export const newMemberInfo = async () =>
+  (
+    await http.get<Tmember>(
+      `/api/v1/users/list?keyword=&date_after_created=2023-07-02%2000%3A00%3A00`
+    )
+  ).data.data;
+// 获取未分配部门的成员数据
+export const undistributedMemberInfo = async () =>
+  (await http.get<Tmember>(`/api/v1/users/list?keyword=&department_id=0`)).data
+    .data;
+// 获取停用的成员数据
+export const deactivateMembers = async () =>
+  (await http.get<Tmember>(`/api/v1/users/list?keyword=&state=0`)).data.data;
+
+// 更改部门名称
+export const changeDepartmentName = async (data: {
+  id: number;
+  name: string;
+  owner_id: number;
+  parent_id: number;
+  sort: number;
+  created_at: string;
+  updated_at: string;
+}) =>
+  (await http.post<TchangeNepartmentName>(`/api/v1/departments`, data)).data
+    .code;
